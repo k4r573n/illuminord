@@ -25,7 +25,11 @@
 extern char*language_id;
 
 # ifndef NO_DEFAULT_LANGUAGE
+<<<<<<< HEAD:language.h
 #  define LANGUAGE_GERMAN
+=======
+#  define LANGUAGE_ENGLISH
+>>>>>>> f42d5e78845a69968ab0cf206eea087c5fffcb61:language.h
 # endif
 
 // ==================================== ENGLISH
