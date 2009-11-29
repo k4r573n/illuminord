@@ -29,7 +29,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "xmms/plugin.h"
+#include "audacious/plugin.h"
 
 #include "config.h"
 #include "cfile.h"
@@ -54,7 +54,7 @@ VisPlugin illuminord_vp = {
 	NULL,						/* reserved		*/
 	NULL,						/* reserved		*/
 	0,						/* xmms_session		*/
-	"illuminordxmms v0.3a",				/* description		*/
+	"illuminordxmms v0.4a",				/* description		*/
 	0,						/* num_pcm_chs_wanted	*/
 	1,						/* num_freq_chs_wanted  */
 	illuminord_init,				/* init			*/

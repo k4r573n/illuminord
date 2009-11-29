@@ -19,6 +19,8 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+/* braucht unter Ubuntu das Paket libwxgtk2.8-dev */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -185,7 +187,7 @@ void illuminord_about()
 
 	if( !about_window ) {
 		// create window
-		about_window = gtk_window_new(GTK_WINDOW_DIALOG);
+		about_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 		gtk_container_set_border_width(GTK_CONTAINER(about_window), 10);
 		gtk_window_set_title(GTK_WINDOW(about_window), ABOUT_TITLE);
 		gtk_window_set_policy(GTK_WINDOW(about_window), FALSE, FALSE, FALSE);
@@ -346,7 +348,7 @@ void illuminord_config()
 	
 	if( !config_window ) {
 		// create window
-		config_window = gtk_window_new(GTK_WINDOW_DIALOG);
+		config_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 		gtk_container_set_border_width(GTK_CONTAINER(config_window), 10);
 		gtk_window_set_title(GTK_WINDOW(config_window), CONFIG_TITLE);
 		gtk_window_set_policy(GTK_WINDOW(config_window), FALSE, FALSE, FALSE);

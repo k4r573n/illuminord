@@ -212,7 +212,7 @@ void slcd_config(int n)
 	
 	l = &states[n];
 	if(!*win) {
-		*win = gtk_window_new(GTK_WINDOW_DIALOG);
+		*win = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 		snprintf(buf, sizeof(buf), SLCD_TITLE, n+1);
 		gtk_container_set_border_width(GTK_CONTAINER(*win), 10);
 		gtk_window_set_title(GTK_WINDOW(*win), buf);
