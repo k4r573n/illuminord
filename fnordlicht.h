@@ -31,12 +31,8 @@ extern char*fnordlicht_id;
 #define FN_BLUE 2
 
 #define FN_BROADCAST 0
-<<<<<<< HEAD:fnordlicht.h
 //#define FN_DEFAULTDEVICE "/dev/fnordlicht"
 #define FN_DEFAULTDEVICE "/dev/ttyS0"
-=======
-#define FN_DEFAULTDEVICE "/dev/fnordlicht"
->>>>>>> f42d5e78845a69968ab0cf206eea087c5fffcb61:fnordlicht.h
 
 // open fnordlicht device
 // if device == NULL, it defaults to /dev/fnordlicht
