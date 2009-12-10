@@ -18,7 +18,9 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-
+/*see
+http://hg.atheme.org/audacious-plugins/audacious-plugins/file/220f4bedd095/src/spectrum/spectrum.c
+*/
 #include <string.h>
 #include <time.h>
 #include <fcntl.h>
@@ -43,35 +45,39 @@ char *illuminordxmms_id = ILLUMINORDXMMS_ID;
 
 static int  cmdok=0;		// cmd has been opened without error?
 
-static void illuminord_init();
-static void illuminord_clean();
-static void illuminord_play();
-static void illuminord_stop();
-static void illuminord_render(gint16 data[2][256]);
+static void illuminord_init(void);
+static void illuminord_cleanup(void);
+static void illuminord_playback_start(void);
+static void illuminord_playback_stop(void);
+static void illuminord_render_freq(gint16 data[2][256]);
 
 // main callback and data for plugin:
 VisPlugin illuminord_vp = {
-	NULL,						/* reserved		*/
-	NULL,						/* reserved		*/
-	0,						/* xmms_session		*/
-	"illuminordxmms v0.4a",				/* description		*/
-	0,						/* num_pcm_chs_wanted	*/
-	1,						/* num_freq_chs_wanted  */
-	illuminord_init,				/* init			*/
-	illuminord_clean,				/* cleanup		*/
-	illuminord_about,				/* about		*/
-	illuminord_config,				/* configure		*/
-	NULL,						/* disable_plugin	*/
-	illuminord_play,				/* playback_start	*/
-	illuminord_stop,				/* playback_stop	*/
-	NULL,						/* render_pcm		*/
-	illuminord_render				/* render_freq		*/
+//	NULL,						/* reserved		*/
+//	NULL,						/* reserved		*/
+//	0,						/* xmms_session		*/
+	.description = "illuminordxmms v0.4a",				/* description		*/
+	.num_pcm_chs_wanted = 0,						/* num_pcm_chs_wanted	*/
+	.num_freq_chs_wanted = 1,						/* num_freq_chs_wanted  */
+	.init = illuminord_init,				/* init			*/
+	.cleanup = illuminord_cleanup,				/* cleanup		*/
+//	illuminord_about,				/* about		*/
+	.configure = illuminord_config,				/* configure		*/
+//	NULL,						/* disable_plugin	*/
+	.playback_start = illuminord_playback_start,				/* playback_start	*/
+	.playback_stop = illuminord_playback_stop,				/* playback_stop	*/
+//	NULL,						/* render_pcm		*/
+	.render_freq = illuminord_render_freq,				/* render_f req		*/
+//	.get_widget = bscope_get_widget,
 };
 
-VisPlugin *get_vplugin_info(void)
+/*VisPlugin *get_vplugin_info(void)
 {
 	return &illuminord_vp;
-}
+}*/
+VisPlugin *illuminord_vplist[] = { &illuminord_vp, NULL };
+
+DECLARE_PLUGIN(illuminord, NULL, NULL, NULL, NULL, NULL, NULL, illuminord_vplist,NULL);
 
 void commit()
 {
@@ -81,15 +87,15 @@ void commit()
 		fnordlicht_setrgb(states[light].i2c_adr,
 					states[light].c.r,
 					states[light].c.g,
-					states[light].c.b );
+ 					states[light].c.b );
 }
 
 static void set_black()
 {
-	int light;
+ 	int light;
 
 	for( light = 0; light < devcount; light++) {
-		states[light].c.r = 0;
+ 		states[light].c.r = 0;
 		states[light].c.g = 0;
 		states[light].c.b = 0;
 	}
@@ -123,7 +129,7 @@ void setfpal(int n)
 #endif
 }
 
-static void illuminord_init()
+static void illuminord_init(void)
 {
 	int i;
 
@@ -146,26 +152,26 @@ static void illuminord_init()
 		commit();
 }
 
-static void illuminord_clean()
+static void illuminord_cleanup(void)
 {
 	if(cmdok)
 		cmdok = !fnordlicht_close();
 
-	save_to_configfile(CONFIG_FILE);
+ 	save_to_configfile(CONFIG_FILE);
 }
 
-static void illuminord_play()
+static void illuminord_playback_start(void)
 {
 //	set_black();
 }
 
 
-static void illuminord_stop()
+static void illuminord_playback_stop(void)
 {
 	set_black();
 }
 
-static void illuminord_render(gint16 data[2][256])
+static void illuminord_render_freq(gint16 data[2][256])
 {
 	int light;				// index running over all lights
 	int intnum;				// counter for lights running specific interpreter
@@ -276,5 +282,5 @@ static void illuminord_render(gint16 data[2][256])
 #endif
 		// commit changes to lights
 		commit();
-	}
+ 	}
 }

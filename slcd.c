@@ -218,7 +218,7 @@ void slcd_config(int n)
 		gtk_window_set_title(GTK_WINDOW(*win), buf);
 		gtk_window_set_policy(GTK_WINDOW(*win), FALSE, FALSE, FALSE);
 		gtk_window_set_position(GTK_WINDOW(*win), GTK_WIN_POS_MOUSE);
-		gtk_signal_connect(GTK_OBJECT(*win), "destroy", GTK_SIGNAL_FUNC(gtk_widget_destroyed), win);
+		g_signal_connect(G_OBJECT(*win), "destroy", G_CALLBACK(gtk_widget_destroyed), win);
 			// create global framing vbox
 			vbox = gtk_vbox_new(FALSE,0);
 				// framing hbox for label, i2c-spinner and test-button
@@ -229,13 +229,13 @@ void slcd_config(int n)
 					gtk_widget_show(label);
 					// spinbutton for i2c_adr: i2c-address
 					adj = (GtkAdjustment*)gtk_adjustment_new(l->i2c_adr, 1, 127, 1, 1, 1);
-					gtk_signal_connect (GTK_OBJECT (adj), "value_changed", GTK_SIGNAL_FUNC(slcd_i2c_changed), (gpointer*)n);
+					g_signal_connect (G_OBJECT (adj), "value_changed", GTK_SIGNAL_FUNC(slcd_i2c_changed), (gpointer*)n);
 					spinner = gtk_spin_button_new(adj, 1, 0);
 					gtk_box_pack_start(GTK_BOX(hbox), spinner, TRUE, TRUE, 0);
 					gtk_widget_show(spinner);
 					// test button
 					testit = gtk_button_new_with_label(SLCD_TEST_LIGHT);
-					gtk_signal_connect(GTK_OBJECT(testit), "clicked", GTK_SIGNAL_FUNC(testit_callback), (gpointer*)n);
+					g_signal_connect(G_OBJECT(testit), "clicked", GTK_SIGNAL_FUNC(testit_callback), (gpointer*)n);
 					GTK_WIDGET_SET_FLAGS(testit, GTK_CAN_DEFAULT);
 					gtk_box_pack_start(GTK_BOX(hbox), testit, TRUE, TRUE, 0);
 					gtk_widget_show(testit);
@@ -249,7 +249,7 @@ void slcd_config(int n)
 					gtk_widget_show(label);
 					// spinbutton for hp:
 					adj = (GtkAdjustment*)gtk_adjustment_new(l->hp, 0., 1., 0.05, 0.1, 0);
-					gtk_signal_connect (GTK_OBJECT (adj), "value_changed", GTK_SIGNAL_FUNC(slcd_hp_changed), (gpointer*)n);
+					g_signal_connect (G_OBJECT (adj), "value_changed", GTK_SIGNAL_FUNC(slcd_hp_changed), (gpointer*)n);
 					spinner = gtk_spin_button_new(adj, 0.05, 5);
 					gtk_box_pack_start(GTK_BOX(hbox), spinner, TRUE, TRUE, 0);
 					gtk_widget_show(spinner);
@@ -263,7 +263,7 @@ void slcd_config(int n)
 					gtk_widget_show(label);
 					// spinbutton for hp:
 					adj = (GtkAdjustment*)gtk_adjustment_new(l->fs, 0., 1., 0.005, 0.05, 0);
-					gtk_signal_connect (GTK_OBJECT (adj), "value_changed", GTK_SIGNAL_FUNC(slcd_fs_changed), (gpointer*)n);
+					g_signal_connect (G_OBJECT (adj), "value_changed", GTK_SIGNAL_FUNC(slcd_fs_changed), (gpointer*)n);
 					spinner = gtk_spin_button_new(adj, 0.005, 5);
 					gtk_box_pack_start(GTK_BOX(hbox), spinner, TRUE, TRUE, 0);
 					gtk_widget_show(spinner);
@@ -277,17 +277,17 @@ void slcd_config(int n)
 						radiovbox = gtk_vbox_new(FALSE,0);
 							// create radio-buttons for interpreter: band analyzer
 							radio_band    = gtk_radio_button_new_with_label(NULL, SLCD_IPR_BAND_ANALYZER);
-							gtk_signal_connect(GTK_OBJECT(radio_band), "toggled", GTK_SIGNAL_FUNC(radio_ipr_callback), (gpointer*)(n | 256));
+							g_signal_connect(G_OBJECT(radio_band), "toggled", GTK_SIGNAL_FUNC(radio_ipr_callback), (gpointer*)(n | 256));
 							gtk_box_pack_start(GTK_BOX(radiovbox), radio_band, TRUE, TRUE, 0);
 							gtk_widget_show(radio_band);
 							// moving average
 							radio_average = gtk_radio_button_new_with_label(gtk_radio_button_group(GTK_RADIO_BUTTON(radio_band)), SLCD_IPR_MOVING_AVERAGE);
-							gtk_signal_connect(GTK_OBJECT(radio_average), "toggled", GTK_SIGNAL_FUNC(radio_ipr_callback), (gpointer*)(n | 512));
+							g_signal_connect(G_OBJECT(radio_average), "toggled", GTK_SIGNAL_FUNC(radio_ipr_callback), (gpointer*)(n | 512));
 							gtk_box_pack_start(GTK_BOX(radiovbox), radio_average, TRUE, TRUE, 0);
 							gtk_widget_show(radio_average);
 							// moving peak
 							radio_peak    = gtk_radio_button_new_with_label(gtk_radio_button_group(GTK_RADIO_BUTTON(radio_band)), SLCD_IPR_MOVING_PEAK);
-							gtk_signal_connect(GTK_OBJECT(radio_peak), "toggled", GTK_SIGNAL_FUNC(radio_ipr_callback), (gpointer*)(n | 1024));
+							g_signal_connect(G_OBJECT(radio_peak), "toggled", GTK_SIGNAL_FUNC(radio_ipr_callback), (gpointer*)(n | 1024));
 							gtk_box_pack_start(GTK_BOX(radiovbox), radio_peak, TRUE, TRUE, 0);
 							gtk_widget_show(radio_peak);
 							
@@ -312,27 +312,27 @@ void slcd_config(int n)
 						radiovbox = gtk_vbox_new(FALSE,0);
 							// create radio-buttons for palmodes: strength palette
 							radio_strength = gtk_radio_button_new_with_label(NULL, SLCD_PM_STRENGTH);
-							gtk_signal_connect(GTK_OBJECT(radio_strength), "toggled", GTK_SIGNAL_FUNC(radio_pm_callback), (gpointer*)(n | 256));
+							g_signal_connect(G_OBJECT(radio_strength), "toggled", GTK_SIGNAL_FUNC(radio_pm_callback), (gpointer*)(n | 256));
 							gtk_box_pack_start(GTK_BOX(radiovbox), radio_strength, TRUE, TRUE, 0);
 							gtk_widget_show(radio_strength);
 							// spectral palette
 							radio_spectrum = gtk_radio_button_new_with_label(gtk_radio_button_group(GTK_RADIO_BUTTON(radio_strength)), SLCD_PM_SPECTRUM);
-							gtk_signal_connect(GTK_OBJECT(radio_spectrum), "toggled", GTK_SIGNAL_FUNC(radio_pm_callback), (gpointer*)(n | 512));
+							g_signal_connect(G_OBJECT(radio_spectrum), "toggled", GTK_SIGNAL_FUNC(radio_pm_callback), (gpointer*)(n | 512));
 							gtk_box_pack_start(GTK_BOX(radiovbox), radio_spectrum, TRUE, TRUE, 0);
 							gtk_widget_show(radio_spectrum);
 							// cyclic simple palette
 							radio_cyclic   = gtk_radio_button_new_with_label(gtk_radio_button_group(GTK_RADIO_BUTTON(radio_strength)), SLCD_PM_CYCLIC);
-							gtk_signal_connect(GTK_OBJECT(radio_cyclic), "toggled", GTK_SIGNAL_FUNC(radio_pm_callback), (gpointer*)(n | 1024));
+							g_signal_connect(G_OBJECT(radio_cyclic), "toggled", GTK_SIGNAL_FUNC(radio_pm_callback), (gpointer*)(n | 1024));
 							gtk_box_pack_start(GTK_BOX(radiovbox), radio_cyclic, TRUE, TRUE, 0);
 							gtk_widget_show(radio_cyclic);
 							// simple palette
 							radio_simple   = gtk_radio_button_new_with_label(gtk_radio_button_group(GTK_RADIO_BUTTON(radio_strength)), SLCD_PM_SIMPLE);
-							gtk_signal_connect(GTK_OBJECT(radio_simple), "toggled", GTK_SIGNAL_FUNC(radio_pm_callback), (gpointer*)(n | 2048));
+							g_signal_connect(G_OBJECT(radio_simple), "toggled", GTK_SIGNAL_FUNC(radio_pm_callback), (gpointer*)(n | 2048));
 							gtk_box_pack_start(GTK_BOX(radiovbox), radio_simple, TRUE, TRUE, 0);
 							gtk_widget_show(radio_simple);
 							// static color
 							radio_static   = gtk_radio_button_new_with_label(gtk_radio_button_group(GTK_RADIO_BUTTON(radio_strength)), SLCD_PM_STATIC);
-							gtk_signal_connect(GTK_OBJECT(radio_static), "toggled", GTK_SIGNAL_FUNC(radio_pm_callback), (gpointer*)(n | 4096));
+							g_signal_connect(G_OBJECT(radio_static), "toggled", GTK_SIGNAL_FUNC(radio_pm_callback), (gpointer*)(n | 4096));
 							gtk_box_pack_start(GTK_BOX(radiovbox), radio_static, TRUE, TRUE, 0);
 							gtk_widget_show(radio_static);
 							switch(l->pm) {
@@ -368,7 +368,7 @@ void slcd_config(int n)
 						gtk_widget_show(label);
 						// spinbutton for n_:
 						adj = (GtkAdjustment*)gtk_adjustment_new(l->n_, 0, 255, 1, 5, 0);
-						gtk_signal_connect (GTK_OBJECT (adj), "value_changed", GTK_SIGNAL_FUNC(slcd_n_low_changed), (gpointer*)n);
+						g_signal_connect (G_OBJECT (adj), "value_changed", GTK_SIGNAL_FUNC(slcd_n_low_changed), (gpointer*)n);
 						spinner = gtk_spin_button_new(adj, 1, 0);
 						gtk_box_pack_start(GTK_BOX(hbox), spinner, TRUE, TRUE, 0);
 						gtk_widget_show(spinner);
@@ -378,7 +378,7 @@ void slcd_config(int n)
 						gtk_widget_show(label);
 						// spinbutton for n:
 						adj = (GtkAdjustment*)gtk_adjustment_new(l->n, 0, 255, 1, 5, 0);
-						gtk_signal_connect (GTK_OBJECT (adj), "value_changed", GTK_SIGNAL_FUNC(slcd_n_high_changed), (gpointer*)n);
+						g_signal_connect (G_OBJECT (adj), "value_changed", GTK_SIGNAL_FUNC(slcd_n_high_changed), (gpointer*)n);
 						spinner = gtk_spin_button_new(adj, 1, 0);
 						gtk_box_pack_start(GTK_BOX(hbox), spinner, TRUE, TRUE, 0);
 						gtk_widget_show(spinner);
@@ -395,7 +395,7 @@ void slcd_config(int n)
 						gtk_widget_show(label);
 						// spinbutton for hp:
 						adj = (GtkAdjustment*)gtk_adjustment_new(l->bv, 0., 1., 0.05, 0.5, 0);
-						gtk_signal_connect (GTK_OBJECT (adj), "value_changed", GTK_SIGNAL_FUNC(slcd_bv_changed), (gpointer*)n);
+						g_signal_connect (G_OBJECT (adj), "value_changed", GTK_SIGNAL_FUNC(slcd_bv_changed), (gpointer*)n);
 						spinner = gtk_spin_button_new(adj, 0.005, 5);
 						gtk_box_pack_start(GTK_BOX(hbox), spinner, TRUE, TRUE, 0);
 						gtk_widget_show(spinner);
@@ -412,8 +412,8 @@ void slcd_config(int n)
 					colorarray[2] = ((double)l->bc.b) / 255.;
 					colorarray[3] = 1.;
 					gtk_color_selection_set_color(GTK_COLOR_SELECTION(*colorpicker), colorarray);
-					gtk_signal_connect (GTK_OBJECT (*colorpicker), "color_changed", GTK_SIGNAL_FUNC(slcd_bc_changed), (gpointer*)n);
-					gtk_signal_connect(GTK_OBJECT(*colorpicker), "destroy", GTK_SIGNAL_FUNC(gtk_widget_destroyed), colorpicker);
+					g_signal_connect (G_OBJECT (*colorpicker), "color_changed", GTK_SIGNAL_FUNC(slcd_bc_changed), (gpointer*)n);
+					g_signal_connect(G_OBJECT(*colorpicker), "destroy", GTK_SIGNAL_FUNC(gtk_widget_destroyed), colorpicker);
 					gtk_color_selection_set_update_policy(GTK_COLOR_SELECTION(*colorpicker), GTK_UPDATE_CONTINUOUS);
 					gtk_container_add(GTK_CONTAINER(frame), *colorpicker);
 					gtk_widget_show(*colorpicker);
@@ -421,14 +421,14 @@ void slcd_config(int n)
 				gtk_widget_show(frame);
 				// create button to escape from the dialog
 				done = gtk_button_new_with_label(CONFIG_DONETEXT);
-				gtk_signal_connect(GTK_OBJECT(done), "clicked", GTK_SIGNAL_FUNC(destroy_on_press), *win);
+				g_signal_connect(G_OBJECT(done), "clicked", GTK_SIGNAL_FUNC(destroy_on_press), *win);
 				GTK_WIDGET_SET_FLAGS(done, GTK_CAN_DEFAULT);
 				gtk_box_pack_start(GTK_BOX(vbox), done, TRUE, TRUE, 0);
 				gtk_widget_show(done);
 			gtk_container_add(GTK_CONTAINER(*win), vbox);
 			gtk_widget_show(vbox);
 		slcd_show_only_needed(n);
-		gtk_widget_show(*win);
+		gtk_widget_show_all(*win);
 	} else
 		return;
 }
