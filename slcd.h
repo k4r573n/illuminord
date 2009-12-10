@@ -1,8 +1,10 @@
-/*  $Id: slcd.h 156 2005-10-06 15:33:06Z lostrace $
- *  illuminordxmms v0.3a
+/*
+ *  illuminord v0.4
  *  
  *  Copyright (C) 2005
  *  losTrace aka "David R. Piegdon" and cebewee aka "Lars Noschinski"
+ *
+ *  further edits in 2009 by Karsten Hinz (see history http://github.com/k4r573n/illuminord)
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

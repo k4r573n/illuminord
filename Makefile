@@ -1,5 +1,5 @@
  # $Id: Makefile 154 2005-10-06 01:08:44Z lostrace $
- #  illuminordxmms v0.3
+ #  illuminord v0.4
  #  
  #  Copyleft (c) 2005 by
  #  losTrace aka "David R. Piegdon" and cebewee aka "Lars Noschinski"
@@ -37,14 +37,7 @@ Linux:	LDFLAGS+= -L/usr/lib
 Linux:	LDFLAGS+= -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lpangoft2-1.0 -lgdk_pixbuf-2.0 -lm -lpangocairo-1.0 -lgio-2.0 -lcairo -lpango-1.0 -lfreetype -lfontconfig -lgobject-2.0 -lgmodule-2.0 -lglib-2.0
 Linux:	LDFLAGS+= -pthread -L/lib -laudclient -lgthread-2.0 -lgtk-x11-2.0 -lmcs -ldbus-glib-1 -lsamplerate -lgdk-x11-2.0 -latk-1.0 -lpangoft2-1.0 -lgdk_pixbuf-2.0 -lm -lpangocairo-1.0 -lgio-2.0 -lcairo -lpango-1.0 -lfreetype -lfontconfig -lgmodule-2.0 -lmowgli -ldbus-1 -lpthread -lrt -lgobject-2.0 -lglib-2.0
 Linux:	LDFLAGS+= -shared
-Linux:	libilluminordxmms.so
-	-
-
-Darwin:	CFLAGS+= -I/usr/X11R6/include  -I/opt/local/include  -I/opt/local/include/xmms  -I/opt/local/include/gtk-1.2  -I/opt/local/include/glib-1.2  -I/opt/local/lib/glib/include
-Darwin:	LDFLAGS+= -L/usr/lib  -L/opt/local/lib  -L/usr/X11R6/lib  -flat_namespace
-#Darwin:	LDFLAGS+= -lxmms  -lm  -lglib  -lgtk  -lgdk
-Darwin:	LDFLAGS+= -undefined suppress  -bundle
-Darwin:	libilluminordxmms.so
+Linux:	libilluminord.so
 	-
 
 tags:	*.c *.h
@@ -52,15 +45,14 @@ tags:	*.c *.h
 
 clean:
 	-$(RM) $(OBJECTS)
-	-$(RM) libilluminordxmms.so
+	-$(RM) libilluminord.so
 	-$(RM) tags
 	
 install: all
-#	mkdir -p ~/.xmms/Plugins
-	cp libilluminordxmms.so ~/.local/share/audacious/Plugins/
+	cp libilluminord.so ~/.local/share/audacious/Plugins/
 
 uninstall:
-	$(RM) ~/.local/share/audacious/Plugins/libilluminordxmms.so
+	$(RM) ~/.local/share/audacious/Plugins/libilluminord.so
 
 test:
 	killall audacious2
@@ -70,10 +62,10 @@ test:
 	audacious2
 
 edit:
-	vim illuminordxmms.c
+	vim illuminord.c
 
 $(OBJECTS): $(HEADERS)
 
-libilluminordxmms.so: $(OBJECTS)
+libilluminord.so: $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 

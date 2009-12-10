@@ -1,8 +1,10 @@
-/*  $Id: config.c 156 2005-10-06 15:33:06Z lostrace $
- *  illuminordxmms v0.3a
+/*
+ *  illuminord v0.4
  *  
  *  Copyright (C) 2005
  *  losTrace aka "David R. Piegdon" and cebewee aka "Lars Noschinski"
+ *
+ *  further edits in 2009 by Karsten Hinz (see history http://github.com/k4r573n/illuminord)
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,8 +21,6 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-/* braucht unter Ubuntu das Paket libwxgtk2.8-dev */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,7 +29,7 @@
 
 #include "config.h"
 #include "fnordlicht.h"
-#include "illuminordxmms.h"
+#include "illuminord.h"
 #include "palette.h"
 #include "slcd.h"
 #include "calc.h"
@@ -204,7 +204,7 @@ void illuminord_about()
 					versionvbox = gtk_vbox_new(FALSE, 0);
 						// create label for fileversion
 						if(!buf) {
-							s = strlen(illuminordxmms_id)
+							s = strlen(illuminord_id)
 								+strlen(fnordlicht_id)
 								+strlen(config_id)
 								+strlen(slcd_id)
@@ -215,7 +215,7 @@ void illuminord_about()
 								+10;  // needed for \n of each line...
 							buf = malloc(s);
 							snprintf(buf,s,"%s\n" "%s\n" "%s\n" "%s\n" "%s\n" "%s\n" "%s\n" "%s",
-									illuminordxmms_id,
+									illuminord_id,
 									fnordlicht_id,
 									config_id,
 									slcd_id,

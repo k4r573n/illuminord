@@ -1,8 +1,10 @@
-/*  $Id: fnordlicht.c 156 2005-10-06 15:33:06Z lostrace $
- *  illuminordxmms v0.3a
+/*
+ *  illuminord v0.4
  *  
  *  Copyright (C) 2005
  *  losTrace aka "David R. Piegdon" and cebewee aka "Lars Noschinski"
+ *
+ *  further edits in 2009 by Karsten Hinz (see history http://github.com/k4r573n/illuminord)
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -168,7 +170,7 @@ void fnordlicht_setrgb(uint8_t address, uint8_t rval, uint8_t gval, uint8_t bval
 	 write(fnordlicht_fd, a, 1);
 	
 /*	if ( 6 != write(fnordlicht_fd, ("r",rval,"g",gval,"b",bval), 6) )
-		fprintf(stderr, "illuminord-xmms :: failed write at %d!\n", (int)time(NULL));
+		fprintf(stderr, "illuminord- :: failed write at %d!\n", (int)time(NULL));
 	fsync(fnordlicht_fd);*/
 //	i = read(fnordlicht_fd, &res, 1);
 //	if(res!='F')

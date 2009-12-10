@@ -1,5 +1,5 @@
-/*  $Id: illuminordxmms.c 156 2005-10-06 15:33:06Z lostrace $
- *  illuminordxmms v0.3a
+/*  
+ *  illuminord v0.4
  *  
  *  Copyright (C) 2005
  *  losTrace aka "David R. Piegdon" and cebewee aka "Lars Noschinski"
@@ -18,9 +18,6 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-/*see
-http://hg.atheme.org/audacious-plugins/audacious-plugins/file/220f4bedd095/src/spectrum/spectrum.c
-*/
 #include <string.h>
 #include <time.h>
 #include <fcntl.h>
@@ -36,12 +33,12 @@ http://hg.atheme.org/audacious-plugins/audacious-plugins/file/220f4bedd095/src/s
 #include "config.h"
 #include "cfile.h"
 #include "fnordlicht.h"
-#include "illuminordxmms.h"
+#include "illuminord.h"
 #include "calc.h"
 
-#define ILLUMINORDXMMS_C_ID "$Id: illuminordxmms.c 156 2005-10-06 15:33:06Z lostrace $"
-#define ILLUMINORDXMMS_ID ILLUMINORDXMMS_H_ID "\n" ILLUMINORDXMMS_C_ID
-char *illuminordxmms_id = ILLUMINORDXMMS_ID;
+#define ILLUMINORD_C_ID "$Id: illuminord.c 156 2005-10-06 15:33:06Z lostrace $"
+#define ILLUMINORD_ID ILLUMINORD_H_ID "\n" ILLUMINORD_C_ID
+char *illuminord_id = ILLUMINORD_ID;
 
 static int  cmdok=0;		// cmd has been opened without error?
 
@@ -55,8 +52,8 @@ static void illuminord_render_freq(gint16 data[2][256]);
 VisPlugin illuminord_vp = {
 //	NULL,						/* reserved		*/
 //	NULL,						/* reserved		*/
-//	0,						/* xmms_session		*/
-	.description = "illuminordxmms v0.4a",				/* description		*/
+//	0,						/* _session		*/
+	.description = "illuminord v0.4a",				/* description		*/
 	.num_pcm_chs_wanted = 0,						/* num_pcm_chs_wanted	*/
 	.num_freq_chs_wanted = 1,						/* num_freq_chs_wanted  */
 	.init = illuminord_init,				/* init			*/
@@ -147,7 +144,7 @@ static void illuminord_init(void)
 	// open fnordlicht
 	cmdok = fnordlicht_open(NULL);
 	if(!cmdok)
-		fprintf(stderr,"illuminord-xmms: failed to open fnordlicht device \"%s\"!", FN_DEFAULTDEVICE),fflush(stdout);
+		fprintf(stderr,"illuminord-: failed to open fnordlicht device \"%s\"!", FN_DEFAULTDEVICE),fflush(stdout);
 	else
 		commit();
 }

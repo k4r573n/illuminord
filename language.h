@@ -1,8 +1,10 @@
-/*  $Id: language.h 156 2005-10-06 15:33:06Z lostrace $
- *  illuminordxmms v0.3a
+/*
+ *  illuminord v0.4
  *  
  *  Copyright (C) 2005
  *  losTrace aka "David R. Piegdon" and cebewee aka "Lars Noschinski"
+ *
+ *  further edits in 2009 by Karsten Hinz (see history http://github.com/k4r573n/illuminord)
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -32,22 +34,24 @@ extern char*language_id;
 // ==================================== ENGLISH
 
 # ifdef LANGUAGE_ENGLISH
-#  define ABOUT_TITLE			"illuminordxmms about"
+#  define ABOUT_TITLE			"illuminord about"
 #  define ABOUT_LABEL			"\nCopyright (c) 2005\n"							\
 					"losTrace aka \"David R. Piegdon\" and cebewee aka \"Lars Noschinski\"\n"	\
+					"further edits in 2009 by Karsten Hinz\n"					\
+					"(see history http://github.com/k4r573n/illuminord)\n"				\
 					"\n"										\
 					"Sourcecode and program licensed under GPL v2.\n"				\
 					"You should have received a copy of the GNU General Public License\n"		\
 					"along with this program; if not, write to the Free Software\n"			\
 					"Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA\n"	\
 					"\n"										\
-					"for more info see http://0null.net/software/fnordlicht/\n"			\
+					"for more info see http://github.com/k4r573n/illuminord"			\
 					"please send requests and bugreports to:\n"					\
-					"mailto:illuminordxmms@0null.net\n"
+					"mailto:k4r573n@gmail.com\n"
 #  define ABOUT_VERSION_FRAMELABEL	"version:"
 #  define ABOUT_OKTEXT			"Ok"
 
-#  define CONFIG_TITLE			"configure illuminordxmms"
+#  define CONFIG_TITLE			"configure illuminord"
 #  define CONFIG_DONETEXT		"Done"
 #  define CONFIG_DEVCOUNT_LABELTEXT	"number of fnordlichter:"
 
@@ -64,7 +68,7 @@ extern char*language_id;
 
 #  define SLCD_TITLE			"configure fordlicht #%d"
 
-#  define SLCD_I2C_LABELTEXT		"i2c address:"
+#  define SLCD_I2C_LABELTEXT		"light address:"
 #  define SLCD_TEST_LIGHT		"test"
 #  define SLCD_FADESPEED_LABELTEXT	"fadespeed (reversed):"
 #  define SLCD_HIGHPASS_LABELTEXT	"highpass:"
@@ -92,7 +96,7 @@ extern char*language_id;
 // ==================================== GERMAN / DEUTSCH
 
 # ifdef LANGUAGE_GERMAN
-#  define ABOUT_TITLE			"illuminordxmms about"
+#  define ABOUT_TITLE			"illuminord about"
 #  define ABOUT_LABEL			"\nCopyright (c) 2005\n"								\
 					"losTrace aka \"David R. Piegdon\" und cebewee aka \"Lars Noschinski\"\n"	\
 					"\n"										\
@@ -100,11 +104,11 @@ extern char*language_id;
 					"\n"										\
 					"fuer mehr Info siehe http://0null.net/software/fnordlicht/\n"			\
 					"Anfragen und Bugreports bitte senden an:\n"					\
-					"mailto:illuminordxmms@0null.net\n"
+					"mailto:k4r573n@gmail.com\n"
 #  define ABOUT_VERSION_FRAMELABEL	"Version:"
 #  define ABOUT_OKTEXT			"Ok"
 
-#  define CONFIG_TITLE			"illuminordxmms konfigurieren"
+#  define CONFIG_TITLE			"illuminord konfigurieren"
 #  define CONFIG_DONETEXT		"Fertig"
 #  define CONFIG_DEVCOUNT_LABELTEXT	"Anzahl der Fnordlichter:"
 
@@ -121,7 +125,7 @@ extern char*language_id;
 
 #  define SLCD_TITLE			"Fordlicht #%d konfirurieren"
 
-#  define SLCD_I2C_LABELTEXT		"i2c Adresse:"
+#  define SLCD_I2C_LABELTEXT		"Licht Adresse:"
 #  define SLCD_TEST_LIGHT		"Test"
 #  define SLCD_FADESPEED_LABELTEXT	"Fade-Geschwindigkeit (umgedreht):"
 #  define SLCD_HIGHPASS_LABELTEXT	"Highpass:"

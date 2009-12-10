@@ -1,8 +1,10 @@
-/*  $Id: illuminordxmms.h 156 2005-10-06 15:33:06Z lostrace $
- *  illuminordxmms v0.3a
+/*
+ *  illuminord v0.4
  *  
  *  Copyright (C) 2005
  *  losTrace aka "David R. Piegdon" and cebewee aka "Lars Noschinski"
+ *
+ *  further edits in 2009 by Karsten Hinz (see history http://github.com/k4r573n/illuminord)
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,10 +21,10 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef __ILLUMINORDXMMS_H__
-#define __ILLUMINORDXMMS_H__
-#define ILLUMINORDXMMS_H_ID "$Id: illuminordxmms.h 156 2005-10-06 15:33:06Z lostrace $"
-extern char*illuminordxmms_id;
+#ifndef __ILLUMINORD_H__
+#define __ILLUMINORD_H__
+#define ILLUMINORD_H_ID "$Id: illuminord.h 156 2005-10-06 15:33:06Z lostrace $"
+extern char*illuminord_id;
 
 extern void commit();
 
