@@ -1,0 +1,36 @@
+
+illuminord audacious Plugin
+===========================
+
+
+GENERAL INFO
+------------
+
+I used the Code from the illuminord-xmms plugin (http://david.piegdon.de/software/fnordlicht/#xmms-plugin) and ported it to gtk2 and audacious
+
+
+USAGE
+-----
+
+just install - open audacious - configure it - and enjoy^^
+$ make
+$ make install
+$ audacious2
+
+
+TODO
+----
+
+Change the protocol so that it fit for the new firmware from http://github.com/fd0/fnordlicht
+
+
+ACKNOWLEDGEMENTS
+----------------
+
+Without project Fnordlicht (http://fnordlicht.de), this code would not exist. So i want to thank Alexander Neumann and Lars Nochinsky, the main Fnordlicht
+developer.
+
+Furthermore I thank the xmms- the audacious-developers. And losTrace the main illuminord-developer
+
+Karsten
+
