@@ -56,11 +56,11 @@ clean:
 	-$(RM) tags
 	
 install: all
-	mkdir -p ~/.xmms/Plugins
-	cp libilluminordxmms.so ~/.xmms/Plugins/
+#	mkdir -p ~/.xmms/Plugins
+	cp libilluminordxmms.so ~/.local/share/audacious/Plugins/
 
 uninstall:
-	$(RM) ~/.xmms/Plugins/libilluminordxmms.so
+	$(RM) ~/.local/share/audacious/Plugins/libilluminordxmms.so
 
 edit:
 	vim illuminordxmms.c
