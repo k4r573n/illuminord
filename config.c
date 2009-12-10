@@ -181,9 +181,9 @@ void destroy_on_press(GtkObject*o, gpointer*d)
 
 void illuminord_about()
 {
-	static char*buf = NULL;
-	static int s;
-	GtkWidget *frame, *label, *vbox, *versionvbox, *ok;
+//	static char*buf = NULL;
+//	static int s;
+	GtkWidget *label, *vbox, *ok;//, *frame, *versionvbox;
 
 	if( !about_window ) {
 		// create window
@@ -200,7 +200,8 @@ void illuminord_about()
 				gtk_box_pack_start(GTK_BOX(vbox), label, TRUE, TRUE, 0);
 				gtk_widget_show(label);
 				// create frame for version-info
-				frame = gtk_frame_new(ABOUT_VERSION_FRAMELABEL);
+				//not praktikal with git?!
+/*				frame = gtk_frame_new(ABOUT_VERSION_FRAMELABEL);
 					versionvbox = gtk_vbox_new(FALSE, 0);
 						// create label for fileversion
 						if(!buf) {
@@ -230,7 +231,7 @@ void illuminord_about()
 					gtk_container_add(GTK_CONTAINER(frame), versionvbox);
 					gtk_widget_show(versionvbox);
 				gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 0);
-				gtk_widget_show(frame);
+				gtk_widget_show(frame);*/
 				// create ok-button
 				ok = gtk_button_new_with_label(ABOUT_OKTEXT);
 				gtk_signal_connect(GTK_OBJECT(ok), "clicked", GTK_SIGNAL_FUNC(destroy_on_press), about_window);

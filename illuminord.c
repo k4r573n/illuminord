@@ -58,7 +58,7 @@ VisPlugin illuminord_vp = {
 	.num_freq_chs_wanted = 1,						/* num_freq_chs_wanted  */
 	.init = illuminord_init,				/* init			*/
 	.cleanup = illuminord_cleanup,				/* cleanup		*/
-//	illuminord_about,				/* about		*/
+	.about = illuminord_about,				/* about		*/
 	.configure = illuminord_config,				/* configure		*/
 //	NULL,						/* disable_plugin	*/
 	.playback_start = illuminord_playback_start,				/* playback_start	*/

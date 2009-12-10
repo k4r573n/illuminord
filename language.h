@@ -47,7 +47,7 @@ extern char*language_id;
 					"\n"										\
 					"for more info see http://github.com/k4r573n/illuminord"			\
 					"please send requests and bugreports to:\n"					\
-					"mailto:k4r573n@gmail.com\n"
+					"mailto:k4r573n@gmail.com\n" 
 #  define ABOUT_VERSION_FRAMELABEL	"version:"
 #  define ABOUT_OKTEXT			"Ok"
 
@@ -99,10 +99,13 @@ extern char*language_id;
 #  define ABOUT_TITLE			"illuminord about"
 #  define ABOUT_LABEL			"\nCopyright (c) 2005\n"								\
 					"losTrace aka \"David R. Piegdon\" und cebewee aka \"Lars Noschinski\"\n"	\
+          "\n"                    \
+					"weitere Veränderungen in 2009 von Karsten Hinz\n"					\
+					"(siehe auch Verlauf auf http://github.com/k4r573n/illuminord)\n"				\
 					"\n"										\
 					"Quelltext und Programm lizensiert unter der GPL\n"				\
 					"\n"										\
-					"fuer mehr Info siehe http://0null.net/software/fnordlicht/\n"			\
+					"fuer mehr Info siehe http://github.com/k4r573n/illuminord\n"			\
 					"Anfragen und Bugreports bitte senden an:\n"					\
 					"mailto:k4r573n@gmail.com\n"
 #  define ABOUT_VERSION_FRAMELABEL	"Version:"
