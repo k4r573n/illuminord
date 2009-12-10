@@ -62,6 +62,13 @@ install: all
 uninstall:
 	$(RM) ~/.local/share/audacious/Plugins/libilluminordxmms.so
 
+test:
+	killall audacious2
+	make uninstall
+	make clean
+	make install
+	audacious2
+
 edit:
 	vim illuminordxmms.c
 

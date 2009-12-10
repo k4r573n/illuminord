@@ -38,6 +38,8 @@
 char *fnordlicht_id = FNORDLICHT_ID;
 
 static int fnordlicht_fd = -1;
+static FILE *debug_file;
+static struct tm *zeit;
 
 // open fnordlicht device
 // if device == NULL, it defaults to /dev/fnordlicht
@@ -45,6 +47,16 @@ static int fnordlicht_fd = -1;
 int fnordlicht_open(char* device)
 {//stark angepasst
 	static char *defaultdevice = FN_DEFAULTDEVICE;
+
+  //zum debuggen auch ausgabe in datei:
+
+  debug_file = fopen("/tmp/fnordplugin.log", "a+");
+  if(debug_file != NULL)
+    printf("Datei erfolgreich geöffnet\n");
+  else {
+    printf("Fehler beim Öffnen der Datei");
+  }
+
 
 	if(fnordlicht_fd < 0) {
 		if(!device)
@@ -97,7 +109,7 @@ int fnordlicht_open(char* device)
 
 		options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 		
-		 write(fnordlicht_fd, "sp", 1);
+		write(fnordlicht_fd, "sp", 1);
 
 		return (fnordlicht_fd < 0) ? 0 : 1;
 	} else {
@@ -110,7 +122,16 @@ int fnordlicht_open(char* device)
 // set RGB values now.
 void fnordlicht_setrgb(uint8_t address, uint8_t rval, uint8_t gval, uint8_t bval)
 {
-//stark angepasst
+  //debug file output :
+/*  time_t sekunde;
+  char zeit_str[9];
+  time(&sekunde);
+  zeit = localtime(&sekunde);
+  strftime(zeit_str, 9, "%H-%M-%S",zeit);
+
+  fprintf(debug_file,"%s: send to address:%d r:%d g:%d b:%d\n",zeit_str,address,rval,gval,bval);
+*/
+  //stark angepasst
 #ifndef NOLIGHTS	
 /*	static char cbuf[6] = { 5, 0, 0x20, 0,0,0 };
 	static char res;
@@ -158,14 +179,18 @@ void fnordlicht_setrgb(uint8_t address, uint8_t rval, uint8_t gval, uint8_t bval
 // release fnordlicht device
 int fnordlicht_close()
 {
-	if(fnordlicht_fd >= 0) {
+ //debug file output:
+  fclose(debug_file);
+  
+  
+  if(fnordlicht_fd >= 0) {
 #ifndef NOLIGHTS	
 		write(fnordlicht_fd, "p", 1);
 
 		close(fnordlicht_fd);
 #endif
 		fnordlicht_fd = -1;
-		return 1;
+ 		return 1;
 	} else
 		return 0;
 }

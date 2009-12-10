@@ -32,7 +32,7 @@ extern char*fnordlicht_id;
 
 #define FN_BROADCAST 0
 //#define FN_DEFAULTDEVICE "/dev/fnordlicht"
-#define FN_DEFAULTDEVICE "/dev/ttyS0"
+#define FN_DEFAULTDEVICE "/dev/ttyUSB0"
 
 // open fnordlicht device
 // if device == NULL, it defaults to /dev/fnordlicht
