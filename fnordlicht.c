@@ -34,6 +34,7 @@
 #include <time.h>
 
 #include "fnordlicht.h"
+#include "libfnordlicht.h"
 
 #define FNORDLICHT_C_ID "$Id: fnordlicht.c 156 2005-10-06 15:33:06Z lostrace $"
 #define FNORDLICHT_ID FNORDLICHT_H_ID "\n" FNORDLICHT_C_ID
@@ -111,7 +112,9 @@ int fnordlicht_open(char* device)
 
 		options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 		
-		write(fnordlicht_fd, "sp", 1);
+		//syncing and stop fading
+    sync();
+    stop(255,255);
 
 		return (fnordlicht_fd < 0) ? 0 : 1;
 	} else {
@@ -144,31 +147,11 @@ void fnordlicht_setrgb(uint8_t address, uint8_t rval, uint8_t gval, uint8_t bval
 	cbuf[3+FN_GREEN] = gval;
 	cbuf[3+FN_BLUE] = bval;
 */	
-	 unsigned int t=0;
-	 char* a=(char*)&t;
 
 	// write(fd, "X", 1);
 
-	 write(fnordlicht_fd, "a", 1);
-	 t = address;
-	 a = (char*)&t;
-	 write(fnordlicht_fd, a, 1);
+   fade_rgb(address, 255, 0, rval, gval, bval);
 
-	 write(fnordlicht_fd, "r", 1);
-	 t = rval;
-	 a = (char*)&t;
-	 write(fnordlicht_fd, a, 1);
-
-	 write(fnordlicht_fd, "b", 1);
-	 t = bval;	
-	 a = (char*)&t;
-	 write(fnordlicht_fd, a, 1);
-
-	 write(fnordlicht_fd, "g", 1);
-	 t = gval;
-	 a = (char*)&t;
-	 write(fnordlicht_fd, a, 1);
-	
 /*	if ( 6 != write(fnordlicht_fd, ("r",rval,"g",gval,"b",bval), 6) )
 		fprintf(stderr, "illuminord- :: failed write at %d!\n", (int)time(NULL));
 	fsync(fnordlicht_fd);*/
@@ -187,7 +170,7 @@ int fnordlicht_close()
   
   if(fnordlicht_fd >= 0) {
 #ifndef NOLIGHTS	
-		write(fnordlicht_fd, "p", 1);
+		//may start here some fading in future version
 
 		close(fnordlicht_fd);
 #endif

@@ -62,7 +62,7 @@ test:
 	audacious2
 
 edit:
-	vim illuminord.c
+	vim *.c
 
 $(OBJECTS): $(HEADERS)
 
