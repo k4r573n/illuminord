@@ -53,7 +53,7 @@ VisPlugin illuminord_vp = {
 //	NULL,						/* reserved		*/
 //	NULL,						/* reserved		*/
 //	0,						/* _session		*/
-	.description = "illuminord v0.4a",				/* description		*/
+	.description = "illuminord v0.5",				/* description		*/
 	.num_pcm_chs_wanted = 0,						/* num_pcm_chs_wanted	*/
 	.num_freq_chs_wanted = 1,						/* num_freq_chs_wanted  */
 	.init = illuminord_init,				/* init			*/
