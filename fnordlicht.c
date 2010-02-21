@@ -40,7 +40,7 @@
 #define FNORDLICHT_ID FNORDLICHT_H_ID "\n" FNORDLICHT_C_ID
 char *fnordlicht_id = FNORDLICHT_ID;
 
-static int fnordlicht_fd = -1;
+int fnordlicht_fd = -1;
 static FILE *debug_file;
 static struct tm *zeit;
 
@@ -66,38 +66,41 @@ int fnordlicht_open(char* device)
 			device = defaultdevice;
 			
 #ifndef NOLIGHTS	
-		fnordlicht_fd = open(device, O_CREAT | O_APPEND | O_RDWR /* | O_DIRECT */ , S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-#else
-		fnordlicht_fd = 1;
-#endif
+		fnordlicht_fd = open(device, O_RDWR | O_NOCTTY | O_NDELAY);
 
-		struct termios options;
+    if (fnordlicht_fd > 0) {
+		  struct termios options;
 
-		/*
-		 * Get the current options for the port...
-		 */
+		  /* Get the current options for the port... */
+		  tcgetattr(fnordlicht_fd, &options);
 
-		tcgetattr(fnordlicht_fd, &options);
+		  /* Set the baud rates to 19200... */
+		  cfsetispeed(&options, B19200);
+		  cfsetospeed(&options, B19200);
 
-		/*
-		 * Set the baud rates to 19200...
-		 */
+		  /* Enable the receiver and set local mode... */
+		  options.c_cflag |= (CLOCAL | CREAD);
 
-		cfsetispeed(&options, B19200);
-		cfsetospeed(&options, B19200);
+		  options.c_cflag &= ~CSIZE; /* Mask the character size bits */
+		  options.c_cflag |= CS8;    /* Select 8 data bits */
+		  options.c_cflag &= ~PARENB;
+		  options.c_cflag &= ~CSTOPB;
 
-		/*
-		 * Enable the receiver and set local mode...
-		 */
+		  /* Choosing Raw Input */
+		  options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 
-		options.c_cflag |= (CLOCAL | CREAD);
+		  /* Set the new options for the port... */
+		  tcsetattr(fnordlicht_fd, TCSANOW, &options);
 
-		/*
-		 * Set the new options for the port...
-		 */
+      //sync all devices
+      fnord_sync();
+      //broadcast stop fading
+      stop(255,255);
+    }else{
+      	perror("open_port: Unable to open the Fnordlicht ");
+    }
 
-		tcsetattr(fnordlicht_fd, TCSANOW, &options);
-
+<<<<<<< HEAD:fnordlicht.c
 		 options.c_cflag &= ~CSIZE; /* Mask the character size bits */
 		 options.c_cflag |= CS8;    /* Select 8 data bits */
 
@@ -115,6 +118,11 @@ int fnordlicht_open(char* device)
 		//syncing and stop fading
     sync();
     stop(255,255);
+=======
+#else
+		fnordlicht_fd = 1;
+#endif
+>>>>>>> test:fnordlicht.c
 
 		return (fnordlicht_fd < 0) ? 0 : 1;
 	} else {
@@ -136,6 +144,7 @@ void fnordlicht_setrgb(uint8_t address, uint8_t rval, uint8_t gval, uint8_t bval
 
   fprintf(debug_file,"%s: send to address:%d r:%d g:%d b:%d\n",zeit_str,address,rval,gval,bval);
 */
+<<<<<<< HEAD:fnordlicht.c
   //stark angepasst
 #ifndef NOLIGHTS	
 /*	static char cbuf[6] = { 5, 0, 0x20, 0,0,0 };
@@ -158,6 +167,14 @@ void fnordlicht_setrgb(uint8_t address, uint8_t rval, uint8_t gval, uint8_t bval
 //	i = read(fnordlicht_fd, &res, 1);
 //	if(res!='F')
 // 		fprintf(stderr, "did not get OK from fnordlicht. please check it.\n");
+=======
+#ifndef NOLIGHTS
+
+  //fade_rgb(address, 255, 0, rval, gval, bval);
+  fade_rgb(255, 255, 0, rval, gval, bval);
+
+//send a package
+>>>>>>> test:fnordlicht.c
 #endif
 }
 
@@ -166,11 +183,16 @@ int fnordlicht_close()
 {
  //debug file output:
   fclose(debug_file);
-  
-  
+
+
   if(fnordlicht_fd >= 0) {
+<<<<<<< HEAD:fnordlicht.c
 #ifndef NOLIGHTS	
 		//may start here some fading in future version
+=======
+#ifndef NOLIGHTS
+    //send page to start fading
+>>>>>>> test:fnordlicht.c
 
 		close(fnordlicht_fd);
 #endif

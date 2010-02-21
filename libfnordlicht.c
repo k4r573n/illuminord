@@ -9,21 +9,21 @@
 #include <stdio.h>   /* Standard input/output definitions */
 #include <unistd.h>  /* UNIX standard function definitions */
 
-extern int fd;
+extern int fnordlicht_fd;
 int byte_index=0;
 
 //sends a byte of bits to the device fd
 void send_byte(unsigned int value, char* comment) {
 	fprintf(stdout, "byte %02d   0x%02x   (%s) \n",byte_index,value,comment);
 	char* a = (char*)&value;
-	if (0 > write(fd, a, 1)) { //returns -1 on fail otherwise bytes send
+	if (0 > write(fnordlicht_fd, a, 1)) { //returns -1 on fail otherwise bytes send
 	  fprintf(stderr, "write() of byte %d failed!\n", byte_index);
 	}
 	byte_index++;
 }
 
-void sync(void) {
-	fprintf(stdout, "sends sync sequence to %d \n", fd);
+void fnord_sync(void) {
+	fprintf(stdout, "sends sync sequence");
   byte_index=0;//init new package
   int i;
 
@@ -31,13 +31,13 @@ void sync(void) {
 	 	//send some bytes to complete the pakege
 		send_byte(0x1b,"ESC");
 	}
-  send_byte(0x00,"address");
+  send_byte(0x01,"address");
 }
 
 /** sendet ein Paket zum farben wechseln des Fnordlichts mit der Firmware 0.3
   */
 void fade_rgb(int addr, int step, int delay, int red, int green, int blue) {
-	fprintf(stdout, "send Package FADE_RGB to %d \n", fd);
+	fprintf(stdout, "send Package FADE_RGB \n");
 
   byte_index=0;//init new package
 
@@ -65,7 +65,7 @@ void fade_rgb(int addr, int step, int delay, int red, int green, int blue) {
 /** sendet ein Paket zum farben wechseln des Fnordlichts mit der Firmware 0.3
   */
 void fade_hsv(int addr, int step, int delay, int hue, int saturation, int value) {
-	fprintf(stdout, "send Package FADE_HSV to %d \n", fd);
+	fprintf(stdout, "send Package FADE_HSV \n" );
 
   byte_index=0;//init new package
 
@@ -93,7 +93,7 @@ void fade_hsv(int addr, int step, int delay, int hue, int saturation, int value)
 
 /** ends a package to save a rgb color  */
 void save_rgb(int addr, int slot, int step, int delay, int pause, int red, int green, int blue) {
-	fprintf(stdout, "send Package SAVE_RGB to %d \n", fd);
+	fprintf(stdout, "send Package SAVE_RGB \n");
 
   byte_index=0;//init new package
 
@@ -125,7 +125,7 @@ void save_rgb(int addr, int slot, int step, int delay, int pause, int red, int g
 
 /** ends a package to save a hsv color  */
 void save_hsv(int addr, int slot, int step, int delay, int pause, int hue, int saturation, int value) {
-	fprintf(stdout, "send Package SAVE_HSV to %d \n", fd);
+	fprintf(stdout, "send Package SAVE_HSV \n");
 
   byte_index=0;//init new package
 
@@ -158,7 +158,7 @@ void save_hsv(int addr, int slot, int step, int delay, int pause, int hue, int s
 
 /** ends a package to save the current color  */
 void save_current(int addr, int slot, int step, int delay, int pause) {
-	fprintf(stdout, "send Package SAVE_CURRENT to %d \n", fd);
+	fprintf(stdout, "send Package SAVE_CURRENT \n");
 
   byte_index=0;//init new package
 
@@ -184,7 +184,7 @@ void save_current(int addr, int slot, int step, int delay, int pause) {
 
 /** sends a package to change the fade offset  */
 void config_offsets(int addr, int step, int delay, int hue, int saturation, int value) {
-	fprintf(stdout, "send Package CONFIG_OFFSETS to %d \n", fd);
+	fprintf(stdout, "send Package CONFIG_OFFSETS \n");
 
   byte_index=0;//init new package
 
@@ -212,7 +212,7 @@ void config_offsets(int addr, int step, int delay, int hue, int saturation, int 
 
 /** sends a package to start a program  */
 void start_program(int addr, int program, int params[10]) {
-	fprintf(stdout, "send Package START_PROGRAM to %d \n", fd);
+	fprintf(stdout, "send Package START_PROGRAM to \n");
 
   byte_index=0;//init new package
 
@@ -235,7 +235,7 @@ void start_program(int addr, int program, int params[10]) {
 
 /** sends a package to stop all fadings */
 void stop(int addr,int fade) {
-	fprintf(stdout, "send Package STOP to %d \n", fd);
+	fprintf(stdout, "send Package STOP \n");
 
   byte_index=0;//init new package
 
@@ -255,7 +255,7 @@ void stop(int addr,int fade) {
 /** sendet ein Paket zum ausschalten des Fnordlichts mit der Firmware 0.3
   */
 void powerdown(int addr) {
-	fprintf(stdout, "send Package Powerdown to %d \n", fd);
+	fprintf(stdout, "send Package Powerdown \n");
 
   byte_index=0;//init new package
 
@@ -273,7 +273,7 @@ void powerdown(int addr) {
 /** sendet ein Paket zum konfigurieren des Standard programms des Fnordlichts mit der Firmware 0.3
   */
 void config_startup(int addr,int mode, int program, int parameters[10]) {
-	fprintf(stdout, "send Package config_startup to %d \n", fd);
+	fprintf(stdout, "send Package config_startup \n");
 
   byte_index=0;//init new package
 

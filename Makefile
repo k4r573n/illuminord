@@ -1,9 +1,9 @@
  # $Id: Makefile 154 2005-10-06 01:08:44Z lostrace $
  #  illuminord v0.4
- #  
+ #
  #  Copyleft (c) 2005 by
  #  losTrace aka "David R. Piegdon" and cebewee aka "Lars Noschinski"
- #  
+ #
  #  further edits by Karsten Hinz
 
 .PHONY	: all debug nolights Linux Darwin clean install unintall
@@ -54,8 +54,8 @@ install: all
 uninstall:
 	$(RM) ~/.local/share/audacious/Plugins/libilluminord.so
 
+#killall audacious2
 test:
-	killall audacious2
 	make uninstall
 	make clean
 	make install

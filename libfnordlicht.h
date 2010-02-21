@@ -5,7 +5,7 @@
 
 //file to include to use the fnordlicht funktions
 
-extern void sync(void);
+extern void fnord_sync(void);
 extern void powerdown(int addr);
 extern void fade_rgb(int addr, int step, int delay, int red, int green, int blue);
 extern void fade_hsv(int addr, int step, int delay, int hue, int saturation, int value);
