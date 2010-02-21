@@ -54,8 +54,8 @@ install: all
 uninstall:
 	$(RM) ~/.local/share/audacious/Plugins/libilluminord.so
 
+#killall audacious2
 test:
-	killall audacious2
 	make uninstall
 	make clean
 	make install
