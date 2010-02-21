@@ -51,21 +51,11 @@ int fnordlicht_open(char* device)
 {//stark angepasst
 	static char *defaultdevice = FN_DEFAULTDEVICE;
 
-  //zum debuggen auch ausgabe in datei:
-
-  debug_file = fopen("/tmp/fnordplugin.log", "a+");
-  if(debug_file != NULL)
-    printf("Datei erfolgreich geöffnet\n");
-  else {
-    printf("Fehler beim Öffnen der Datei");
-  }
-
-
 	if(fnordlicht_fd < 0) {
 		if(!device)
 			device = defaultdevice;
-			
-#ifndef NOLIGHTS	
+
+#ifndef NOLIGHTS
 		fnordlicht_fd = open(device, O_RDWR | O_NOCTTY | O_NDELAY);
 
     if (fnordlicht_fd > 0) {
@@ -115,16 +105,7 @@ int fnordlicht_open(char* device)
 // set RGB values now.
 void fnordlicht_setrgb(uint8_t address, uint8_t rval, uint8_t gval, uint8_t bval)
 {
-  //debug file output :
-/*  time_t sekunde;
-  char zeit_str[9];
-  time(&sekunde);
-  zeit = localtime(&sekunde);
-  strftime(zeit_str, 9, "%H-%M-%S",zeit);
-
-  fprintf(debug_file,"%s: send to address:%d r:%d g:%d b:%d\n",zeit_str,address,rval,gval,bval);
-*/
-#ifndef NOLIGHTS	
+#ifndef NOLIGHTS
 
   //send data
    fade_rgb(address, 255, 0, rval, gval, bval);
@@ -135,10 +116,6 @@ void fnordlicht_setrgb(uint8_t address, uint8_t rval, uint8_t gval, uint8_t bval
 // release fnordlicht device
 int fnordlicht_close()
 {
- //debug file output:
-  fclose(debug_file);
-
-
   if(fnordlicht_fd >= 0) {
 #ifndef NOLIGHTS
     //maybe send package to start fading
